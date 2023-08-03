@@ -1,8 +1,10 @@
 package com.example.mydevblog.controllers;
 
 import com.example.mydevblog.models.Account;
+import com.example.mydevblog.models.Comment;
 import com.example.mydevblog.models.Post;
 import com.example.mydevblog.services.AccountService;
+import com.example.mydevblog.services.CommentService;
 import com.example.mydevblog.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -23,6 +26,9 @@ public class PostController {
     private PostService postService;
 
     @Autowired
+    private CommentService commentService;
+
+    @Autowired
     private AccountService accountService;
 
     @GetMapping("/posts/{id}")
@@ -30,7 +36,10 @@ public class PostController {
         Optional<Post> optionalPost = postService.getById(id);
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
+            List<Comment> comments = null;
+            if (post != null) comments = commentService.getByPost(post);
             model.addAttribute("post", post);
+            model.addAttribute("comments", comments);
             return "post";
         } else {
             return "404";

@@ -20,11 +20,13 @@
     </div>
     <div class="comments">
         <h3>Comments</h3>
-        <div class="comment">
-            <!--<h5 th:text="'by ${comment.commenterName} ' + '${comment.leftAt}'">Name & Date</h5>
-            <p th:text="${comment.body}">Comment body</p> -->
+        <div th:each="comment : ${comments}" class="comment">
+            <h5 th:text="'by ' + ${comment.account.getEmail()} + ' ' + ${comment.writtenAt}">Name & Date</h5>
+            <p th:text="${comment.body}">Comment body</p>
         </div>
     </div>
+
+
 </div>
 <ul sec:authorize="hasRole('ROLE_ADMIN')">
     <li><a th:href="@{'/posts/' + ${post.id} + '/edit'}">Edit</a></li>

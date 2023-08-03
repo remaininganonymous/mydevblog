@@ -2,9 +2,11 @@ package com.example.mydevblog.config;
 
 import com.example.mydevblog.models.Account;
 import com.example.mydevblog.models.Authority;
+import com.example.mydevblog.models.Comment;
 import com.example.mydevblog.models.Post;
 import com.example.mydevblog.repositories.AuthorityRepository;
 import com.example.mydevblog.services.AccountService;
+import com.example.mydevblog.services.CommentService;
 import com.example.mydevblog.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,6 +27,9 @@ public class SeedData implements CommandLineRunner {
 
     @Autowired
     private AuthorityRepository authorityRepository;
+
+    @Autowired
+    private CommentService commentService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -75,6 +80,23 @@ public class SeedData implements CommandLineRunner {
 
             postService.save(post1);
             postService.save(post2);
+
+            Comment comment1 = new Comment();
+            comment1.setPost(post1);
+            comment1.setBody("Some comment 1");
+            comment1.setAccount(account1);
+            Comment comment2 = new Comment();
+            comment2.setPost(post1);
+            comment2.setBody("Some comment 2");
+            comment2.setAccount(account1);
+            Comment comment3 = new Comment();
+            comment3.setPost(post1);
+            comment3.setBody("Some comment 3");
+            comment3.setAccount(account2);
+
+            commentService.save(comment1);
+            commentService.save(comment2);
+            commentService.save(comment3);
         }
 
         /*if (posts.size() == 0) {
