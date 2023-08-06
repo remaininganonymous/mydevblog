@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CommentRepository extends JpaRepository<Comment, Post> {
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     List<Comment> findByPost(Post post);
+
+    List<Comment> findAllByPost(Post post);
+
 }

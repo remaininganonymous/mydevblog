@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,6 +34,9 @@ public class Post {
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
     private Account account;
 
+    @OneToMany
+
+    private List<Comment> comments;
 
     @Override
     public String toString() {
