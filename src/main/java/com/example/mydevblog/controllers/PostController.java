@@ -107,8 +107,8 @@ public class PostController {
     }
 
     @GetMapping("/posts/new")
-    public String createNewPost(Model model) {
-        Optional<Account> optionalAccount = accountService.findByEmail("user.user@domain.com"); //исправить
+    public String createNewPost(Model model, Authentication authentication) {
+        Optional<Account> optionalAccount = accountService.findByEmail("user.user@domain.com"); //исправить //хотя все норм
         if (optionalAccount.isPresent()) {
             Post post = new Post();
             post.setAccount(optionalAccount.get());

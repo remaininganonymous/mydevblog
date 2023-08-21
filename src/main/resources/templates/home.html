@@ -11,8 +11,11 @@
     <div class="container">
         <h1>Spring Boot Blog Application</h1>
         <hr/>
+
         <ul>
-            <li><a th:href="@{/posts/new}">New Post</a></li>
+            <li sec:authorize="isAuthenticated()" th:if="${#authentication.principal.username == 'admin.admin@domain.com'}"><a th:href="@{/posts/new}">New Post</a></li>
+            <li><a th:href="@{/about}">About Us</a></li>
+
         </ul>
         <div class="posts-container">
             <div class="post" th:each="post : ${posts}">
