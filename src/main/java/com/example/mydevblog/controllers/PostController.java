@@ -76,7 +76,7 @@ public class PostController {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             Optional<Account> optionalAccount = accountService.findByEmail(userDetails.getUsername());
             if (optionalAccount.isPresent()) {
-                Account account = optionalAccount.get();
+                Account account  = optionalAccount.get();
                 new_comment.setAccount(account);
             } else {
                 // Обработка случая, когда аккаунт для аутентифицированного пользователя не найден
@@ -91,6 +91,20 @@ public class PostController {
         return "redirect:/posts/" + id;
     }
 
+
+
+    @PostMapping("/posts/{postId}/delete/{commentId}")
+    @PreAuthorize("isAuthenticated()") /////
+    public String deleteComment(@PathVariable Long postId, @PathVariable Long commentId, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Optional<Account> optionalAccount = accountService.findByEmail(userDetails.getUsername());
+        Optional<Comment> optionalComment = commentService.getById(commentId);
+        Comment comment = optionalComment.get();
+        if (optionalComment.isPresent()) {
+            if (comment.getAccount() == optionalAccount.get()) commentService.delete(comment);
+        }
+        return "redirect:/posts/" + postId;
+    }
 
     @GetMapping("/posts/new")
     public String createNewPost(Model model) {

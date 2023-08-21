@@ -20,6 +20,10 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
+    public Optional<Comment> getById(Long id) {
+
+        return commentRepository.findById(id);
+    }
     public List<Comment> getByPost(Post post) {
 
         return commentRepository.findByPost(post);
@@ -33,6 +37,9 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
+    public void delete(Comment comment) {
+        commentRepository.delete(comment);
+    }
 
     public List<Comment> getAllCommentsForPost(Post updatedPost) {
         return commentRepository.findAllByPost(updatedPost);

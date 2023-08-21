@@ -34,9 +34,6 @@ public class Post {
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
     private Account account;
 
-    @OneToMany
-
-    private List<Comment> comments;
 
     @Override
     public String toString() {

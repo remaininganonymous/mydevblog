@@ -24,20 +24,18 @@ public class Comment {
     private LocalDateTime writtenAt;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
     private Account account;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
+    /*@JoinTable(name = "comment_post",
+            joinColumns = {@JoinColumn(name = "comment_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "post_id", referencedColumnName = "id")}
+    )*/
     private Post post;
-
-    /*private Long postId;
-
-    {
-        postId = post.getId();
-    }*/
 
     @Override
     public String toString() {
